@@ -51,9 +51,10 @@ export default function Home() {
 
       const data = await response.json();
       setMarkdown(data.markdown);
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error('Error uploading file:', err);
-      setError(err.message || 'Failed to process PDF. Check the console for details.');
+      const message = err instanceof Error ? err.message : 'An unknown error occurred';
+      setError(message || 'Failed to process PDF. Check the console for details.');
       setMarkdown('');
     } finally {
       setIsLoading(false);
@@ -90,7 +91,7 @@ export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center p-12 md:p-24 bg-gray-50">
       <div className="w-full max-w-5xl">
-        <h1 className="text-3xl font-bold text-center text-gray-800 mb-10">Gabe's OCR</h1>
+        <h1 className="text-3xl font-bold text-center text-gray-800 mb-10">Gabe&apos;s OCR</h1>
 
         <div className="w-full bg-white p-8 rounded-lg shadow-md">
           <form onSubmit={handleSubmit} className="mb-6 space-y-4">

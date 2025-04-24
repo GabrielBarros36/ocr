@@ -17,14 +17,14 @@ interface MistralSignedUrl {
 interface MistralOcrPage {
   index: number;
   markdown: string;
-  images?: any[]; // Define more specific type if needed
-  dimensions?: any; // Define more specific type if needed
+  images?: unknown[]; // Use unknown[] instead of any[]
+  dimensions?: unknown; // Use unknown instead of any
 }
 
 interface MistralOcrResponse {
   pages: MistralOcrPage[];
   model: string;
-  usage_info: any; // Define more specific type if needed
+  usage_info: unknown; // Use unknown instead of any
 }
 
 
@@ -145,9 +145,9 @@ export async function POST(request: NextRequest) {
     console.log('OCR processing successful.');
     return NextResponse.json({ markdown: combinedMarkdown });
 
-  } catch (error: any) {
+  } catch (error: unknown) { // Use unknown instead of any
     console.error('Error processing PDF:', error);
-    // Return a more specific error message if available
+    // Add type check for error before accessing properties
     const errorMessage = error instanceof Error ? error.message : 'Failed to process PDF.';
     return NextResponse.json({ error: errorMessage }, { status: 500 });
   }
